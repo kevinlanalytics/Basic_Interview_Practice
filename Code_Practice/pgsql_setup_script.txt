@@ -1,0 +1,5 @@
+-- This script sets up a PostgreSQL database
+createdb womens_health_db
+
+-- Connect to the database
+psql -d womens_health_db

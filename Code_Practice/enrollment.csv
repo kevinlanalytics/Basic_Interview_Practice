@@ -1,0 +1,9 @@
+enroll_id,patient_id,trial_id,enroll_date,status
+101,1,WH001,2022-11-15,Active
+102,2,WH002,2022-12-01,Completed
+103,3,WH003,2023-01-20,Withdrawn
+104,4,WH001,2023-02-14,Active
+105,5,WH004,2023-03-10,Completed
+106,6,WH005,2023-04-02,Active
+107,7,WH003,2023-04-10,Active
+108,8,WH002,2023-05-12,Completed
