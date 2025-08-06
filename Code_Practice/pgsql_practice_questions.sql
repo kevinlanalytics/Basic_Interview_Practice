@@ -14,21 +14,21 @@ select patient_id, name from patients p
 where patient_id not in (select patient_id from enrollment) or 
 order by name;
 
--- Q4: For each region, rank patients by birth_date (oldest = 1).
+-- Q4: For each region, rank patients by birth_date (oldest = 1). (rank() over, partition by aggregation function)
 select p.region, p.name, p.birth_date
 from patients p
 rank () over (partition by p.region order by p.birth_date) as rank
 from patients p
 order by p.region, rank;
 
--- Q5: Find the trial(s) with the highest number of enrolled patients.
+-- Q5: Find the trial(s) with the highest number of enrolled patients. (order by desc function)
 select e.trial_id, count(e.patient_id) as patient_count
 from enrollment e
 group by e.trial_id
 order by patient_count desc
 
 
--- Q6: List only the most recent enrollment for each patient.
+-- Q6: List only the most recent enrollment for each patient. (desc function)
 select * from enrollment order by enroll_date desc;
 
 -- Q7: Write a query that returns each patient's name and a column trial_status where: (Case when function)
@@ -44,21 +44,22 @@ select p.name,
 from patients p
 left join enrollment e on p.patient_id = e.patient_id;
 
--- Q8: Write a query to list all enrolled patients and the trial condition, using 'Unknown Trial' if the trial condition is null.
+-- Q8: Write a query to list all enrolled patients and the trial condition, using 'Unknown Trial' if the trial condition is null. (COALESCE function on simple NULL handling)
+    -- COALESCE returns the first non-null value in the list.
 select 
     trial_id, 
     coalesce(condition, 'unknown condition') as condition 
 from trials;
 
 
--- Q9: How many distinct trials has each patient participated in? 
+-- Q9: How many distinct trials has each patient participated in? (distinct and count function)
     -- with highest patient count first. 
 select distinct(e.trial_id), count(patient_id) as patient_count
 from enrollment e
 group by e.trial_id
 order by patient_count desc; -- use limit 1 to get the highest count only
 
--- Q10 alter tables foreign key data type. - remove constraints, alter the two tables, add constraints back 
+-- Q10 alter tables foreign key data type. to remove constraints, alter the two tables, add constraints back 
 begin; -- use begin to start a transaction and wrap it, it is similar to CTE in SQL Server, it creates a temporary transaction block until commit or rollback.
  alter table enrollment drop constraint enrollment_patient_id_fkey;
 alter table enrollment alter patient_id type integer using patient_id :: integer;
