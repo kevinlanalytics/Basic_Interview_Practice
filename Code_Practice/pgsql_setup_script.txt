@@ -1,3 +1,5 @@
+-- install postgresSQL from https://www.postgresql.org/download/
+
 -- This script sets up a PostgreSQL database
 createdb womens_health_db
 

@@ -1,0 +1,16 @@
+Welcome, this is my practice playground for pgSQL and python interview in biomedical application for data engineer role. 
+
+Checklist for postgresSQL 
+    * find the nulls 
+    * find the duplicates 
+    * find distinct values 
+    * manage missing names (with coalecse)
+    * update specific value at specific row and column
+    * case when 
+    * Joins (inner joins, and know cross join, or Union)
+    * ALTER table A ALTER column B TYPE integer USING column B :: integer
+
+Check list for python 
+    * Create converting and transformation maps like A:B, and C:D 
+    * Use function, if-loops to parse 
+    * 
