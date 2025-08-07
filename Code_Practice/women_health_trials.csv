@@ -1,8 +1,8 @@
 trial_id,drug_name,dose_mg,start_date,condition,intervention_details
 WH001,Yaz,"3mg",2022/10/01,polycystic ovary syndrome,"Drospirenone/ethinyl estradiol daily"
 WH002,Lupron,3.75,2022-11-15,Endometriosis,"3.75mg Lupron Depot injection"
-WH003,Estrace,1 mg,2023.01.02,Menopause symptoms,"Estradiol oral tablet once daily"
+WH003,Estrace,1 mg,2023.01.02,NULL,"Estradiol oral tablet once daily"
 WH004,Mirena,n/a,2023-02-15,contraception,"Levonorgestrel-releasing IUD"
 WH005,Letrozole,"2.5",Jan 5 2023,infertility,"2.5 mg Letrozole daily"
 WH006,Clomid,"50mg",2023-01-07,Ovulatory dysfunction,"Clomiphene Citrate oral tablet"
-WH007,,,"2023-01-08",PMS,"Vitamin B6, magnesium"
+WH007,,,"2023-01-08",PMS,"NULL"
