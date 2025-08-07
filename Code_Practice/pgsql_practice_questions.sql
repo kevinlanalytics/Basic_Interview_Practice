@@ -1,3 +1,46 @@
+-- Create the 'patients' table
+CREATE TABLE patients (
+    patient_id INT PRIMARY KEY,
+    name VARCHAR(255),
+    gender VARCHAR(1),
+    birth_date DATE,
+    region VARCHAR(255)
+);
+
+-- Import data into the 'patients' table
+COPY patients (patient_id, name, gender, birth_date, region)
+FROM 'patients.csv'
+WITH (FORMAT CSV, HEADER, DELIMITER ',');
+
+-- Create the 'trials' table
+CREATE TABLE trials (
+    trial_id VARCHAR(255) PRIMARY KEY,
+    condition VARCHAR(255),
+    phase VARCHAR(255),
+    sponsor VARCHAR(255)
+);
+
+-- Import data into the 'trials' table
+COPY trials (trial_id, condition, phase, sponsor)
+FROM 'trials.csv'
+WITH (FORMAT CSV, HEADER, DELIMITER ',');
+
+-- Create the 'enrollment' table
+CREATE TABLE enrollment (
+    enroll_id INT PRIMARY KEY,
+    patient_id INT REFERENCES patients(patient_id),
+    trial_id VARCHAR(255) REFERENCES trials(trial_id),
+    enroll_date DATE,
+    status VARCHAR(255)
+);
+
+-- Import data into the 'enrollment' table
+COPY enrollment (enroll_id, patient_id, trial_id, enroll_date, status)
+FROM 'enrollment.csv'
+WITH (FORMAT CSV, HEADER, DELIMITER ',');
+
+
+
 -- Q1: Show all patient names and the trials they are enrolled in (include patients not enrolled). (join function)
 select p.name, e.trial_id, e.status, t.phase from patients p
 left join enrollment e on p.patient_id = e.patient_id
@@ -30,7 +73,7 @@ order by p.region, rank;
 select e.trial_id, count(e.patient_id) as patient_count
 from enrollment e
 group by e.trial_id
-order by patient_count desc
+order by patient_count desc;
 
 
 -- Q6: List only the most recent enrollment for each patient. (desc function)
@@ -71,9 +114,9 @@ order by patient_count desc; -- use limit 1 to get the highest count only
 begin; -- use begin to start a transaction and wrap it, it is similar to CTE in SQL Server, it creates a temporary transaction block until commit or rollback.
 alter table enrollment drop constraint enrollment_patient_id_fkey;
 alter table enrollment alter patient_id type integer using patient_id :: integer;
-alter table patients alter patient_id type integer using patient_id :: integer;                          
+alter table patients alter patient_id type integer using patient_id :: integer;
 alter table enrollment add constraint enrollment_patient_id_fkey foreign key (patient_id) references patients(patient_id);
-select * from patients where patient_id = 4;
+select * from patients where patient_id = 4;-- check the data type of patient_id in patients table
 commit; -- or rollback; 
 
 -- Q11: update data in specific columns and rows. e.g. update patient name.
