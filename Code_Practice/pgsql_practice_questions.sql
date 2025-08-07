@@ -17,9 +17,11 @@ order by name;
 
 
 -- Q4: For each region, rank patients by birth_date (oldest = 1). (rank() over, partition by aggregation function)
-select p.region, p.name, p.birth_date
-from patients p
-rank () over (partition by p.region order by p.birth_date) as rank
+select 
+    p.region, 
+    p.name, 
+    p.birth_date,
+    rank() over (partition by p.region order by p.birth_date) as rank
 from patients p
 order by p.region, rank;
 
@@ -67,7 +69,7 @@ order by patient_count desc; -- use limit 1 to get the highest count only
 
 -- Q10 alter tables foreign key data type. to remove constraints, alter the two tables, add constraints back 
 begin; -- use begin to start a transaction and wrap it, it is similar to CTE in SQL Server, it creates a temporary transaction block until commit or rollback.
- alter table enrollment drop constraint enrollment_patient_id_fkey;
+alter table enrollment drop constraint enrollment_patient_id_fkey;
 alter table enrollment alter patient_id type integer using patient_id :: integer;
 alter table patients alter patient_id type integer using patient_id :: integer;                          
 alter table enrollment add constraint enrollment_patient_id_fkey foreign key (patient_id) references patients(patient_id);
